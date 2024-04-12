@@ -1,4 +1,4 @@
-export function UnoptimizedWASM() {
+export function unoptimizedFactorization() {
     // Get the input value and split it into an array of numbers
     const number = BigInt(document.getElementById('numberInput').value);
     console.log(`[JS] Number: ${number}`);
