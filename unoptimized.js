@@ -1,6 +1,6 @@
-export function unoptimizedFactorization() {
+export default function unoptimizedFactorization(n) {
     // Get the input value and split it into an array of numbers
-    const number = BigInt(document.getElementById('numberInput').value);
+    const number = BigInt(n);
     console.log(`[JS] Number: ${number}`);
 
     // Create a BigInt64Array with a size of 60
@@ -27,13 +27,6 @@ export function unoptimizedFactorization() {
 
    // from pointer to BigInt64Array
     const resultArray = new BigInt64Array(Module.HEAP32.buffer, pointer, counter);
-
-    // // Display the result in the HTML
-    // const resultDiv = document.getElementById('printArrayResult');
-
-    // const resultArrayString = Array.from(resultArray).join(', ');
-
-    // resultDiv.textContent = `The number ${number} has ${counter} factors: ${resultArrayString}`;
     
     // // Free the allocated memory
     Module._free(pointer);

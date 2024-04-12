@@ -1,4 +1,5 @@
-function basicFactorization(n) {
+export default function basicFactorization(n) {
+  n = parseInt(n);
   let factors = [];
   while (n % 2 === 0) {
     factors.push(2);
@@ -18,5 +19,3 @@ function basicFactorization(n) {
 
   return factors;
 }
-
-module.exports = { basicFactorization };
