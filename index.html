@@ -5,13 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Factorización Prima</title>
     <script src="func/prime_factorization.js"></script> <!-- Load the wasm file -->
-    <script src="index.js"></script><!-- Load the JS file that uses the wasm file -->   
+    <script src="unoptimizedWasm.js"></script><!-- Load the JS file that uses the wasm file -->   
 </head>
 <body>
     <label for="numberInput">Enter the number:</label>
     <input type="text" id="numberInput" value="21">
-    <button onclick="generateArrayAndPrint()">Resolver</button>
+    <button onclick="unoptimizedWASM()">Factorize</button>
     <p>Open the browser console to see logs from wasm</p>
-    <div id="printArrayResult"></div>
+    <div id="ResultTable">
+        <table>
+            <thead>
+                <tr>
+                    <th>Factors</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody id="ResultTableBody">
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
