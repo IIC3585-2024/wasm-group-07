@@ -29,7 +29,7 @@ int PrimeFactorization(long long n, long long* factors) {
     printf("Cantidad de factores primos: %d \n", count);
     printf("Factores: \n");
     for (int i = 0; i < count; i++) {
-        printf("%d \n", factors[i]);
+        printf("%lld \n", factors[i]);
     }
 
     return count;
