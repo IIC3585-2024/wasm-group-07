@@ -4,9 +4,8 @@
 #include <stdbool.h>
 
 // Prime factorization based on: https://www.geeksforgeeks.org/print-all-prime-factors-of-a-given-number/
-int PrimeFactorization(long long n) {
+int PrimeFactorization(long long n, long long* factors) {
     int count = 0;
-    int factors[60];
 
     while (n % 2 == 0) {
         factors[count] = 2;
