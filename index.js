@@ -45,7 +45,14 @@ function addFactorsToList (factorizationName, factors, duration) {
     resultDiv.textContent = factors;
     tableRow.appendChild(resultDiv);
 
-    durationDiv.textContent = `${duration.toString().match(/^-?\d+(?:\.\d{0,3})?/)[0]} ms`;
+    let durationStr = duration.toString().match(/^-?\d+(?:\.\d{0,3})?/)[0];
+    if (!durationStr.includes('.')) {
+        durationStr += '.000';
+    } else if (durationStr.match(/\.(\d+)/)[1].length < 3) {
+        durationStr += '0'.repeat(3 - durationStr.match(/\.(\d+)/)[1].length);
+    }
+
+    durationDiv.textContent = durationStr + " ms";
     tableRow.appendChild(durationDiv);
 
     document.getElementById("resultTableBody").appendChild(tableRow);
