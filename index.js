@@ -1,43 +1,58 @@
-function generateArrayAndPrint() {
-    // Get the input value and split it into an array of numbers
-    const number = BigInt(document.getElementById('numberInput').value);
-    console.log(`[JS] Number: ${number}`);
+import unoptimizedFactorization from './unoptimized.js';
+import basicFactorization from './basicFactorization.js';
+import O1Factorization from './o1.js';
+import O2Factorization from './o2.js';
+import O3Factorization from './o3.js';
 
-    // Create a BigInt64Array with a size of 60
-    const bigint64Array = new BigInt64Array(60);
+const factorizations = [
+    { name: "Unoptimized C", func: unoptimizedFactorization },
+    { name: "O1 C", func: O1Factorization },
+    { name: "O2 C", func: O2Factorization },
+    { name: "O3 C", func: O3Factorization },
+    { name: "Pure JS", func: basicFactorization }
+]
 
-    // Allocate memory for the BigInt64Array in the WebAssembly module
-    const pointer = Module._malloc(bigint64Array.length * bigint64Array.BYTES_PER_ELEMENT);
+function runFactorizations() {
+    // Clear the table
+    document.getElementById('resultTableBody').innerHTML = '';
 
-    // Separate the memory address of the BigInt64Array into 32-bit integers
-    const pointer32 = pointer / 4;
-    const pointerHigh = pointer32 + 1;
-
-    // Set the memory address of the BigInt64Array in the WebAssembly module
-    Module.HEAP32[pointer32] = pointer;
-    Module.HEAP32[pointerHigh] = 0;
-
-    // Call the prime_factorization function from the WebAssembly module
-    const _prime_factorization = Module.cwrap('PrimeFactorization', "number", ['bigint', "[bigint]"]);
-
-    // Call the prime_factorization function from the WebAssembly module
-    const counter = _prime_factorization(number, pointer);
-
-    console.log(`[JS] Called prime_factorization`);
-
-   // from pointer to BigInt64Array
-    const resultArray = new BigInt64Array(Module.HEAP32.buffer, pointer, counter);
-
-    
-
-    // Display the result in the HTML
-    const resultDiv = document.getElementById('printArrayResult');
-
-    const resultArrayString = Array.from(resultArray).join(', ');
-
-    resultDiv.textContent = `The number ${number} has ${counter} factors: ${resultArrayString}`;
-
-    // resultDiv.textContent = `The number ${number} has ${counter} factors.`;
-    // // Free the allocated memory
-    Module._free(pointer);
+    // Run the unoptimized WebAssembly function and save the factors to a list
+    const number = document.getElementById('numberInput').value;
+    if (!isCalculationSafe(number)) {
+        alert("The number is too large to calculate. Please enter a smaller number.");
+        return;
+    }
+    factorizations.forEach(factorization => factorize(factorization.name, factorization.func, number));
 }
+
+function factorize(algorithmName, algorithmFunction, number) {
+    const startTime = performance.now();
+    const factors = algorithmFunction(number);
+    const endTime = performance.now();
+    const duration = (endTime - startTime).toFixed(5);
+    addFactorsToList(algorithmName, factors, duration);
+}
+
+function addFactorsToList (factorizationName, factors, duration) {
+    const tableRow = document.createElement('tr');
+    const algorithmDiv = document.createElement('td');
+    const resultDiv = document.createElement('td');
+    const durationDiv = document.createElement('td');
+    
+    algorithmDiv.textContent = factorizationName;
+    tableRow.appendChild(algorithmDiv);
+
+    resultDiv.textContent = factors;
+    tableRow.appendChild(resultDiv);
+
+    durationDiv.textContent = `${duration} ms`;
+    tableRow.appendChild(durationDiv);
+
+    document.getElementById("resultTableBody").appendChild(tableRow);
+}
+
+function isCalculationSafe(number) {
+    return number < Number.MAX_SAFE_INTEGER;
+}
+
+window.runFactorizations = runFactorizations;
