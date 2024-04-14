@@ -40,10 +40,15 @@ function addFactorsToList (factorizationName, factors, duration) {
     const durationDiv = document.createElement('td');
     
     algorithmDiv.textContent = factorizationName;
+    algorithmDiv.className = 'text-center';
     tableRow.appendChild(algorithmDiv);
 
-    resultDiv.textContent = factors;
+    resultDiv.textContent = factors.join(' · ');
+    resultDiv.className = 'text-left';
+    resultDiv.style.whiteSpace = 'pre-line';
     tableRow.appendChild(resultDiv);
+
+    durationDiv.textContent = `${duration} ms`;
 
     let durationStr = duration.toString().match(/^-?\d+(?:\.\d{0,3})?/)[0];
     if (!durationStr.includes('.')) {
@@ -53,6 +58,8 @@ function addFactorsToList (factorizationName, factors, duration) {
     }
 
     durationDiv.textContent = durationStr + " ms";
+    durationDiv.className = 'text-right';
+  
     tableRow.appendChild(durationDiv);
 
     document.getElementById("resultTableBody").appendChild(tableRow);

@@ -3,20 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factorización Prima</title>
+    <title>Prime Factorization</title>
+    <link rel="stylesheet" href="./style.css">
     <script src="index.js" type="module"></script><!-- Load the JS file that uses the wasm file -->
     
 </head>
-<body>
-    <label for="numberInput">Enter the number:</label>
-    <input type="text" id="numberInput" value="21">
-    <button onclick="runFactorizations()">Factorize</button>
-    <p>Open the browser console to see logs from wasm</p>
+<body >
+    <h1 class="text-center">Prime Factorization Benchmark 🧮</h1>
+    <div class="text-center">
+        <label  for="numberInput">Enter the number:</label>
+        <input type="text" id="numberInput" value="21">
+        <br>
+        <br>
+        <button onclick="runFactorizations()">Factorize</button>
+    </div>
+    <br>
     <div id="ResultTable">
         <table>
             <thead>
                 <tr>
-                    <th></th>
+                    <th>Optimization</th>
                     <th>Factors</th>
                     <th>Time</th>
                 </tr>
