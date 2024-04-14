@@ -1,4 +1,4 @@
-# Prime Factorization Benchmark
+# Prime Factorization Benchmark :abacus:
 This repository contains a JS vs WASM prime factorization benchmark. The algorithm implemented both in JS and C is based on this [code](https://www.geeksforgeeks.org/print-all-prime-factors-of-a-given-number/). Finally, the C implementation is compiled to WASM four times: one with no optimizations and other tree with O1, O2, and O3 optimizations, respectively.
 
 ## Usage
