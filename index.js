@@ -1,8 +1,14 @@
 import unoptimizedFactorization from './unoptimized.js';
 import basicFactorization from './basicFactorization.js';
+import O1Factorization from './o1.js';
+import O2Factorization from './o2.js';
+import O3Factorization from './o3.js';
 
 const factorizations = [
     { name: "Unoptimized C", func: unoptimizedFactorization },
+    { name: "O1 C", func: O1Factorization },
+    { name: "O2 C", func: O2Factorization },
+    { name: "O3 C", func: O3Factorization },
     { name: "Pure JS", func: basicFactorization }
 ]
 
@@ -25,6 +31,7 @@ function factorize(algorithmName, algorithmFunction, number) {
     const factors = algorithmFunction(number);
     const endTime = performance.now();
     const duration = endTime - startTime;
+    console.log(`[JS] Times: ${duration} ms`);
     addFactorsToList(algorithmName, factors, duration);
 }
 

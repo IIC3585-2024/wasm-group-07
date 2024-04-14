@@ -1,4 +1,13 @@
+import Module from './func/unoptimized.js';
+
+let myModule = null;
+
+Module().then(module => {
+    myModule = module;
+}).catch(console.error);
+
 export default function unoptimizedFactorization(n) {
+
     // Get the input value and split it into an array of numbers
     const number = BigInt(n);
     console.log(`[JS] Number: ${number}`);
@@ -7,18 +16,13 @@ export default function unoptimizedFactorization(n) {
     const bigint64Array = new BigInt64Array(60);
 
     // Allocate memory for the BigInt64Array in the WebAssembly module
-    const pointer = Module._malloc(bigint64Array.length * bigint64Array.BYTES_PER_ELEMENT);
-
-    // Separate the memory address of the BigInt64Array into 32-bit integers
-    const pointer32 = pointer / 4;
-    const pointerHigh = pointer32 + 1;
+    const pointer = myModule._malloc(bigint64Array.length * bigint64Array.BYTES_PER_ELEMENT);
 
     // Set the memory address of the BigInt64Array in the WebAssembly module
-    Module.HEAP32[pointer32] = pointer;
-    Module.HEAP32[pointerHigh] = 0;
+    myModule.HEAP64.set(bigint64Array, pointer / BigInt64Array.BYTES_PER_ELEMENT);
 
     // Call the prime_factorization function from the WebAssembly module
-    const _prime_factorization = Module.cwrap('PrimeFactorization', "number", ['bigint', "[bigint]"]);
+    const _prime_factorization = myModule.cwrap('PrimeFactorization', "number", ['bigint', "[bigint]"]);
 
     // Call the prime_factorization function from the WebAssembly module
     const counter = _prime_factorization(number, pointer);
@@ -26,10 +30,10 @@ export default function unoptimizedFactorization(n) {
     console.log(`[JS] Called prime_factorization`);
 
    // from pointer to BigInt64Array
-    const resultArray = new BigInt64Array(Module.HEAP32.buffer, pointer, counter);
+    const resultArray = new BigInt64Array(myModule.HEAP32.buffer, pointer, counter);
     
     // // Free the allocated memory
-    Module._free(pointer);
+    myModule._free(pointer);
 
     return resultArray;
 }
