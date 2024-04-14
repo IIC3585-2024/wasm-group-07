@@ -29,7 +29,7 @@ function factorize(algorithmName, algorithmFunction, number) {
     const startTime = performance.now();
     const factors = algorithmFunction(number);
     const endTime = performance.now();
-    const duration = (endTime - startTime).toFixed(5);
+    const duration = (endTime - startTime);
     addFactorsToList(algorithmName, factors, duration);
 }
 
@@ -45,14 +45,14 @@ function addFactorsToList (factorizationName, factors, duration) {
     resultDiv.textContent = factors;
     tableRow.appendChild(resultDiv);
 
-    durationDiv.textContent = `${duration} ms`;
+    durationDiv.textContent = `${duration.toString().match(/^-?\d+(?:\.\d{0,3})?/)[0]} ms`;
     tableRow.appendChild(durationDiv);
 
     document.getElementById("resultTableBody").appendChild(tableRow);
 }
 
 function isCalculationSafe(number) {
-    return number < Number.MAX_SAFE_INTEGER;
+    return BigInt(number) < 9223372036854775807n;
 }
 
 window.runFactorizations = runFactorizations;
