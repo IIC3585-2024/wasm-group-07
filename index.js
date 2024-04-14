@@ -29,7 +29,7 @@ function factorize(algorithmName, algorithmFunction, number) {
     const startTime = performance.now();
     const factors = algorithmFunction(number);
     const endTime = performance.now();
-    const duration = endTime - startTime;
+    const duration = (endTime - startTime).toFixed(5);
     addFactorsToList(algorithmName, factors, duration);
 }
 
