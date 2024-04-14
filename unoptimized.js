@@ -1,4 +1,4 @@
-import Module from './func/unoptimized.js';
+import Module from './func/unoptimized_factorization.js';
 
 let myModule = null;
 
@@ -10,7 +10,6 @@ export default function unoptimizedFactorization(n) {
 
     // Get the input value and split it into an array of numbers
     const number = BigInt(n);
-    console.log(`[JS] Number: ${number}`);
 
     // Create a BigInt64Array with a size of 60
     const bigint64Array = new BigInt64Array(60);
@@ -26,8 +25,6 @@ export default function unoptimizedFactorization(n) {
 
     // Call the prime_factorization function from the WebAssembly module
     const counter = _prime_factorization(number, pointer);
-
-    console.log(`[JS] Called prime_factorization`);
 
    // from pointer to BigInt64Array
     const resultArray = new BigInt64Array(myModule.HEAP32.buffer, pointer, counter);

@@ -13,7 +13,6 @@ const factorizations = [
 ]
 
 function runFactorizations() {
-    console.log("Running factorizations");
     // Clear the table
     document.getElementById('resultTableBody').innerHTML = '';
 
@@ -31,7 +30,6 @@ function factorize(algorithmName, algorithmFunction, number) {
     const factors = algorithmFunction(number);
     const endTime = performance.now();
     const duration = endTime - startTime;
-    console.log(`[JS] Times: ${duration} ms`);
     addFactorsToList(algorithmName, factors, duration);
 }
 
