@@ -1,5 +1,27 @@
 # Prime Factorization Benchmark :abacus:
+
 This repository contains a JS vs WASM prime factorization benchmark. The algorithm implemented both in JS and C is based on this [code](https://www.geeksforgeeks.org/print-all-prime-factors-of-a-given-number/). Finally, the C implementation is compiled to WASM four times: one with no optimizations and other tree with O1, O2, and O3 optimizations, respectively.
+
+## Setup Emscripten
+
+Install [Emscripten](https://emscripten.org/docs/getting_started/downloads.html) as shown below:
+
+```bash
+# Get the emsdk repo
+git clone https://github.com/emscripten-core/emsdk.git
+
+# Enter that directory
+cd emsdk
+
+# Download and install the latest SDK tools.
+./emsdk install latest
+
+# Make the "latest" SDK "active" for the current user. (writes .emscripten file)
+./emsdk activate latest
+
+# Activate PATH and other environment variables in the current terminal
+source ./emsdk_env.sh
+```
 
 ## Usage
 
