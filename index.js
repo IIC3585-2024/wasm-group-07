@@ -40,12 +40,16 @@ function addFactorsToList (factorizationName, factors, duration) {
     const durationDiv = document.createElement('td');
     
     algorithmDiv.textContent = factorizationName;
+    algorithmDiv.className = 'text-center';
     tableRow.appendChild(algorithmDiv);
 
-    resultDiv.textContent = factors;
+    resultDiv.textContent = factors.join(' · ');
+    resultDiv.className = 'text-left';
+    resultDiv.style.whiteSpace = 'pre-line';
     tableRow.appendChild(resultDiv);
 
     durationDiv.textContent = `${duration} ms`;
+    durationDiv.className = 'text-right';
     tableRow.appendChild(durationDiv);
 
     document.getElementById("resultTableBody").appendChild(tableRow);
