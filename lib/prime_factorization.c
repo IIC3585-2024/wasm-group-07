@@ -13,7 +13,7 @@ int PrimeFactorization(long long n, long long* factors) {
         n = n / 2;
     }
 
-    for (int i = 3; i * i <= n; i = i + 2) {
+    for (long long int i = 3; i * i <= n; i = i + 2) {
         while (n % i == 0) {
             factors[count] = i;
             count++;
