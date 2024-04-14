@@ -11,8 +11,8 @@ export default function O1Factorization(n) {
         // Get the input value and split it into an array of numbers
         const number = BigInt(n);
     
-        // Create a BigInt64Array with a size of 60
-        const bigint64Array = new BigInt64Array(60);
+        // Create a BigInt64Array with a size of 64
+        const bigint64Array = new BigInt64Array(64);
     
         // Allocate memory for the BigInt64Array in the WebAssembly module
         const pointer = myModule._malloc(bigint64Array.length * bigint64Array.BYTES_PER_ELEMENT);

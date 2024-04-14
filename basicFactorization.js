@@ -1,19 +1,19 @@
 export default function basicFactorization(n) {
-  n = parseInt(n);
+  n = BigInt(n);
   let factors = [];
-  while (n % 2 === 0) {
-    factors.push(2);
-    n = n / 2;
+  while (n % 2n === 0n) {
+    factors.push(2n);
+    n = n / 2n;
   }
 
-  for (let i = 3; i * i <= n; i = i + 2) {
-    while (n % i === 0) {
+  for (let i = 3n; i * i <= n; i = i + 2n) {
+    while (n % i === 0n) {
       factors.push(i);
       n = n / i;
     }
   }
 
-  if (n > 2) {
+  if (n > 2n) {
     factors.push(n);
   }
 
