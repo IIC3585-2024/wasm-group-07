@@ -1,5 +1,20 @@
 # Prime Factorization Benchmark
 
+## Usage
+
+### Compile code to WASM
+The WASM binaries are already compiled at the `func/` directory. If you need to recompile them, just use:
+```bash
+./compile.sh
+```
+
+### Visualize benchmark
+Now that you have your code compiled, you can start playing with this prime factorization. To do so, you will need to run a HTTP server at the root directory of this project using the following command:
+```bash
+python3 -m http.server
+```
+
+Once the http server is running, you can open your browser and go to `localhost:8000` or using the port showed on the terminal.
 
 > [!NOTE]  
 > If you are using Brave to see this benchmark, you may notice that the time associated to each prime factorization is always an integer. This happens because Brave has some flags for certain features. To disable this you need to open `brave://flags` on a new tab and search for the Round time stamps flag. Now you should be able to see much percise times when running this benchmark.
