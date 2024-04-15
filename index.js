@@ -18,6 +18,17 @@ function runFactorizations() {
 
     // Run the unoptimized WebAssembly function and save the factors to a list
     const number = document.getElementById('numberInput').value;
+
+    if (number === '') {
+        alert("Please enter a number.");
+        return;
+    }
+
+    if (isNaN(number)) {
+        alert("Please enter a valid number.");
+        return;
+    }
+
     if (!isCalculationSafe(number)) {
         alert("The number is too large to calculate. Please enter a smaller number.");
         return;
