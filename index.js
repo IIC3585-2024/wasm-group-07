@@ -12,25 +12,51 @@ const factorizations = [
     { name: "Pure JS", func: basicFactorization }
 ]
 
-function runFactorizations() {
+async function runFactorizations() {
+
+    const waitingMessage = document.getElementById('waitingMessage');
+    waitingMessage.style.visibility = 'visible';
     // Clear the table
     document.getElementById('resultTableBody').innerHTML = '';
 
     // Run the unoptimized WebAssembly function and save the factors to a list
     const number = document.getElementById('numberInput').value;
-    if (!isCalculationSafe(number)) {
-        alert("The number is too large to calculate. Please enter a smaller number.");
+
+    if (number === '') {
+        alert("Please enter a number.");
+        waitingMessage.style.visibility = 'hidden';
         return;
     }
-    factorizations.forEach(factorization => factorize(factorization.name, factorization.func, number));
-}
 
+    if (isNaN(number)) {
+        alert("Please enter a valid number.");
+        waitingMessage.style.visibility = 'hidden';
+        return;
+    }
+
+    if (!isCalculationSafe(number)) {
+        alert("The number is too large to calculate. Please enter a smaller number.");
+        waitingMessage.style.visibility = 'hidden';
+        return;
+    }
+
+    for (const factorization of factorizations) {
+        await factorize(factorization.name, factorization.func, number);
+    }
+
+    waitingMessage.style.visibility = 'hidden';
+}
 function factorize(algorithmName, algorithmFunction, number) {
-    const startTime = performance.now();
-    const factors = algorithmFunction(number);
-    const endTime = performance.now();
-    const duration = (endTime - startTime);
-    addFactorsToList(algorithmName, factors, duration);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+        const startTime = performance.now();
+        const factors = algorithmFunction(number);
+        const endTime = performance.now();
+        const duration = (endTime - startTime);
+        addFactorsToList(algorithmName, factors, duration);
+        resolve();
+        }, 0);
+    });
 }
 
 function addFactorsToList (factorizationName, factors, duration) {
